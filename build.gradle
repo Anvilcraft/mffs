@@ -26,8 +26,12 @@ minecraft {
     runDir = "run"
 }
 
-dependencies {
+repositories {
+    maven { url = "https://maven.tilera.xyz" }
+}
 
+dependencies {
+    compile "universalelectricity:basiccomponents:1.0.0-dirty:deobf"
 }
 
 processResources
