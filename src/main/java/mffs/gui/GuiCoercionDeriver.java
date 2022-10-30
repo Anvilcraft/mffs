@@ -71,7 +71,7 @@ public class GuiCoercionDeriver extends GuiBase {
         this.drawTextWithTooltip("fortron",
                 "%1: " +
                         ElectricityDisplay.getDisplayShort(
-                                this.tileEntity.getFortronEnergy(),
+                                this.tileEntity.getFortronEnergy() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
                                 ElectricityDisplay.ElectricUnit.JOULES),
                 8, 105, x, y);
         this.fontRendererObj.drawString(

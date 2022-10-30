@@ -153,8 +153,8 @@ public abstract class TileEntityFortron extends TileEntityFrequency
 
   public int getFortronCapacity() { return this.fortronTank.getCapacity(); }
 
-  public int requestFortron(final int joules, final boolean doUse) {
-    return FortronHelper.getAmount(this.fortronTank.drain(joules, doUse));
+  public int requestFortron(final int amount, final boolean doUse) {
+    return FortronHelper.getAmount(this.fortronTank.drain(amount, doUse));
   }
 
   public int provideFortron(final int joules, final boolean doUse) {

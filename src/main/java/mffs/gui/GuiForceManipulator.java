@@ -5,6 +5,7 @@ import mffs.base.GuiBase;
 import mffs.base.PacketTile;
 import mffs.container.ContainerForceManipulator;
 import mffs.gui.button.GuiIcon;
+import mffs.tileentity.TileEntityCoercionDeriver;
 import mffs.tileentity.TileEntityForceManipulator;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -111,12 +112,12 @@ public class GuiForceManipulator extends GuiBase {
         this.drawTextWithTooltip("fortron",
                 "%1: " +
                         ElectricityDisplay.getDisplayShort(
-                                this.tileEntity.getFortronEnergy(),
+                                this.tileEntity.getFortronEnergy() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
                                 ElectricityDisplay.ElectricUnit.JOULES)
                         +
                         "/" +
                         ElectricityDisplay.getDisplayShort(
-                                this.tileEntity.getFortronCapacity(),
+                                this.tileEntity.getFortronCapacity() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
                                 ElectricityDisplay.ElectricUnit.JOULES),
                 8, 110, x, y);
         this.fontRendererObj.drawString(

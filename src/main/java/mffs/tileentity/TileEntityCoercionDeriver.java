@@ -44,7 +44,7 @@ public class TileEntityCoercionDeriver extends TileEntityUniversalEnergy {
       if (!this.isDisabled() && this.isActive()) {
         if (this.isInversed && Settings.ENABLE_ELECTRICITY) {
           final double watts =
-              Math.min(this.getFortronEnergy() * 6.0f, 1000.0f);
+              Math.min(this.getFortronEnergy() * FORTRON_UE_RATIO, 1000.0f);
           final ElectricityPack remainder = this.produce(watts);
           double electricItemGiven = 0.0;
           if (remainder.getWatts() > 0.0) {
@@ -53,7 +53,7 @@ public class TileEntityCoercionDeriver extends TileEntityUniversalEnergy {
                 this.getVoltage());
           }
           this.requestFortron(
-              (int)((watts - (remainder.getWatts() - electricItemGiven)) / 6.0),
+              (int)((watts - (remainder.getWatts() - electricItemGiven)) / FORTRON_UE_RATIO),
               true);
         } else {
           super.wattsReceived += ElectricItemHelper.dechargeItem(

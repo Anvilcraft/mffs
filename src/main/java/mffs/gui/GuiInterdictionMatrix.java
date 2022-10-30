@@ -4,6 +4,7 @@ import mffs.ModularForceFieldSystem;
 import mffs.base.GuiBase;
 import mffs.base.PacketTile;
 import mffs.container.ContainerInterdictionMatrix;
+import mffs.tileentity.TileEntityCoercionDeriver;
 import mffs.tileentity.TileEntityInterdictionMatrix;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -64,11 +65,11 @@ public class GuiInterdictionMatrix extends GuiBase {
     this.drawTextWithTooltip("fortron",
                              "%1: " +
                                  ElectricityDisplay.getDisplayShort(
-                                     this.tileEntity.getFortronEnergy(),
+                                     this.tileEntity.getFortronEnergy() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
                                      ElectricityDisplay.ElectricUnit.JOULES) +
                                  "/" +
                                  ElectricityDisplay.getDisplayShort(
-                                     this.tileEntity.getFortronCapacity(),
+                                     this.tileEntity.getFortronCapacity() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
                                      ElectricityDisplay.ElectricUnit.JOULES),
                              8, 110, x, y);
     this.fontRendererObj.drawString(

@@ -5,6 +5,7 @@ import mffs.base.GuiBase;
 import mffs.base.PacketTile;
 import mffs.container.ContainerFortronCapacitor;
 import mffs.gui.button.GuiButtonPressTransferMode;
+import mffs.tileentity.TileEntityCoercionDeriver;
 import mffs.tileentity.TileEntityFortronCapacitor;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,11 +60,11 @@ public class GuiFortronCapacitor extends GuiBase {
     this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
     this.fontRendererObj.drawString(
         ElectricityDisplay.getDisplayShort(
-            this.tileEntity.getFortronEnergy(),
+            this.tileEntity.getFortronEnergy() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
             ElectricityDisplay.ElectricUnit.JOULES) +
             "/" +
             ElectricityDisplay.getDisplayShort(
-                this.tileEntity.getFortronCapacity(),
+                this.tileEntity.getFortronCapacity() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
                 ElectricityDisplay.ElectricUnit.JOULES),
         8, 105, 4210752);
     super.drawGuiContainerForegroundLayer(x, y);
