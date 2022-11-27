@@ -53,9 +53,9 @@ public class GuiCoercionDeriver extends GuiBase {
             }
         }
         this.fontRendererObj.drawString(
-                1000.0 * UniversalElectricity.TO_BC_RATIO + " MJ/s", 85, 30, 4210752);
+                1000.0 * UniversalElectricity.UE_RF_RATIO  + " RF/s", 85, 30, 4210752);
         this.fontRendererObj.drawString(
-                1000.0 * UniversalElectricity.TO_IC2_RATIO + " EU/s", 85, 40, 4210752);
+                1000.0 * UniversalElectricity.UE_IC2_RATIO + " EU/s", 85, 40, 4210752);
         this.fontRendererObj.drawString(
                 ElectricityDisplay.getDisplayShort(
                         1000.0, ElectricityDisplay.ElectricUnit.WATT),

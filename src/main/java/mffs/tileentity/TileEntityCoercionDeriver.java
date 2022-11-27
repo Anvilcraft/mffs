@@ -1,5 +1,8 @@
 package mffs.tileentity;
 
+import cpw.mods.fml.common.Optional;
+import ic2.api.energy.tile.IEnergySource;
+import mffs.ConversionHelper;
 import mffs.ModularForceFieldSystem;
 import mffs.Settings;
 import mffs.api.modules.IModule;
@@ -13,13 +16,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import universalelectricity.core.electricity.ElectricityPack;
 import universalelectricity.core.item.ElectricItemHelper;
 import universalelectricity.core.item.IItemElectric;
+import universalelectricity.core.item.IItemElectricityStorage;
 
-public class TileEntityCoercionDeriver extends TileEntityUniversalEnergy {
+@Optional.Interface(modid = "IC2", iface = "ic2.api.energy.tile.IEnergySource")
+public class TileEntityCoercionDeriver extends TileEntityUniversalEnergy implements IEnergySource {
   public static final int WATTAGE = 1000;
   public static final int REQUIRED_TIME = 200;
   public static final int MULTIPLE_PRODUCTION = 4;
@@ -52,8 +58,12 @@ public class TileEntityCoercionDeriver extends TileEntityUniversalEnergy {
                 this.getStackInSlot(1), remainder.getWatts(),
                 this.getVoltage());
           }
+          double convertedToRF = 0.0;
+          if ((remainder.getWatts() - electricItemGiven) > 0.0) {
+            convertedToRF = ConversionHelper.fromRF(this.produceRF(ConversionHelper.toRF(remainder.getWatts() - electricItemGiven)));
+          }
           this.requestFortron(
-              (int)((watts - (remainder.getWatts() - electricItemGiven)) / FORTRON_UE_RATIO),
+              (int)Math.ceil((watts - (remainder.getWatts() - (electricItemGiven + convertedToRF))) / FORTRON_UE_RATIO),
               true);
         } else {
           super.wattsReceived += ElectricItemHelper.dechargeItem(
@@ -196,5 +206,36 @@ public class TileEntityCoercionDeriver extends TileEntityUniversalEnergy {
   @Override
   public boolean canConnect(final ForgeDirection direction) {
     return true;
+  }
+
+  @Optional.Method(modid = "IC2")
+  @Override
+  public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
+    return canConnect(direction) && this.getStackInSlot(1) != null;
+  }
+
+  @Optional.Method(modid = "IC2")
+  @Override
+  public double getOfferedEnergy() {
+    ItemStack battery = this.getStackInSlot(1);
+    if (battery == null || !(battery.getItem() instanceof IItemElectricityStorage) || !this.isInversed) return 0;
+    IItemElectricityStorage impl = (IItemElectricityStorage) battery.getItem();
+    double joules = impl.getJoules(battery);
+    return Math.min(ConversionHelper.toEU(joules), 32);
+  }
+
+  @Optional.Method(modid = "IC2")
+  @Override
+  public void drawEnergy(double amount) {
+    ItemStack battery = this.getStackInSlot(1);
+    if (battery == null || !(battery.getItem() instanceof IItemElectricityStorage)) return;
+    IItemElectricityStorage impl = (IItemElectricityStorage) battery.getItem();
+    impl.setJoules(impl.getJoules(battery)- ConversionHelper.fromEU(amount), battery);
+  }
+
+  @Optional.Method(modid = "IC2")
+  @Override
+  public int getSourceTier() {
+    return 1;
   }
 }

@@ -1,9 +1,10 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven { url 'https://maven.tilera.xyz' }
         maven {
             name = "forge"
-            url = "https://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net/"
         }
         maven {
             name = "sonatype"
@@ -11,7 +12,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath 'com.anatawa12.forge:ForgeGradle:1.2-1.1.0-SNAPSHOT'
     }
 }
 
@@ -41,24 +42,28 @@ minecraft {
 
 repositories {
     maven { url = "https://maven.tilera.xyz" }
+    maven {                                                                                                                                                                               
+            name = "ic2c"
+            url = "https://maven.ic2.player.to/"
+            metadataSources {
+                artifact()
+            }                                                                                                                                       
+    }
 }
 
 dependencies {
-    compile "universalelectricity:basiccomponents:1.0.2-dirty:deobf"
+    implementation "universalelectricity:basiccomponents:1.1.0:deobf"
+    implementation 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:dev'
 }
 
-processResources
-{
+processResources {
+    // This will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
+    // Replace values in only mcmod.info.
+    filesMatching('mcmod.info') {
+        // Replace version and mcversion.
         expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-      
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
     }
 }

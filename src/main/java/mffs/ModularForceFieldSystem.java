@@ -75,7 +75,7 @@ import universalelectricity.prefab.CustomDamageSource;
 import universalelectricity.prefab.TranslationHelper;
 
 @Mod(modid = "MFFS", name = "Modular Force Field System", version = "3.1.0",
-     useMetadata = true)
+     useMetadata = true, dependencies = "required-after:basiccomponents;after:IC2")
 public class ModularForceFieldSystem {
   public static final String CHANNEL = "MFFS";
   public static final String ID = "MFFS";

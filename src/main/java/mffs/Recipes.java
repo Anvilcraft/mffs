@@ -221,7 +221,7 @@ public class Recipes {
 
     new RecipeBuilder(new ShapedOreRecipeAdapter())
         .output(ModularForceFieldSystem.itemModuleRotate)
-        .pattern("F ", " F", "  F")
+        .pattern("F  ", " F ", "  F")
         .ingredient('F', ModularForceFieldSystem.itemFocusMatrix)
         .register();
 
