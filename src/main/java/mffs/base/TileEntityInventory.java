@@ -128,12 +128,6 @@ public abstract class TileEntityInventory
         return 64;
     }
 
-    // TODO: what's the equivalent to isInvNameLocalized?
-    // @Override
-    // public boolean func_94042_c() {
-    // return true;
-    // }
-
     @Override
     public boolean isItemValidForSlot(final int slotID,
             final ItemStack itemStack) {

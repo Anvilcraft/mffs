@@ -20,7 +20,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.api.energy.UnitDisplay;
 import universalelectricity.core.vector.Vector3;
 
 public class ItemRemoteController
@@ -120,8 +120,8 @@ public class ItemRemoteController
             if (!world.isRemote) {
               entityPlayer.addChatMessage(new ChatComponentText(
                   "Unable to harness " +
-                  ElectricityDisplay.getDisplay(
-                      requiredEnergy, ElectricityDisplay.ElectricUnit.JOULES) +
+                  UnitDisplay.getDisplay(
+                      requiredEnergy, UnitDisplay.Unit.JOULES) +
                   " from the Fortron field."));
             }
           }

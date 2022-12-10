@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
 import universalelectricity.core.UniversalElectricity;
-import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.api.energy.UnitDisplay;
 import universalelectricity.core.vector.Vector2;
 import universalelectricity.core.vector.Vector3;
 
@@ -57,27 +57,27 @@ public class GuiCoercionDeriver extends GuiBase {
         this.fontRendererObj.drawString(
                 1000.0 * UniversalElectricity.UE_IC2_RATIO + " EU/s", 85, 40, 4210752);
         this.fontRendererObj.drawString(
-                ElectricityDisplay.getDisplayShort(
-                        1000.0, ElectricityDisplay.ElectricUnit.WATT),
+                UnitDisplay.getDisplayShort(
+                        1000.0, UnitDisplay.Unit.WATT),
                 85, 50, 4210752);
         this.fontRendererObj.drawString(
-                ElectricityDisplay.getDisplayShort(
+                UnitDisplay.getDisplayShort(
                         this.tileEntity.getVoltage(),
-                        ElectricityDisplay.ElectricUnit.VOLTAGE),
+                        UnitDisplay.Unit.VOLTAGE),
                 85, 60, 4210752);
         this.drawTextWithTooltip(
                 "progress", "%1: " + (this.tileEntity.isActive() ? "Running" : "Idle"),
                 8, 70, x, y);
         this.drawTextWithTooltip("fortron",
                 "%1: " +
-                        ElectricityDisplay.getDisplayShort(
+                        UnitDisplay.getDisplayShort(
                                 this.tileEntity.getFortronEnergy() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
-                                ElectricityDisplay.ElectricUnit.JOULES),
+                                UnitDisplay.Unit.JOULES),
                 8, 105, x, y);
         this.fontRendererObj.drawString(
-                "§2+" + ElectricityDisplay.getDisplayShort(
+                "§2+" + UnitDisplay.getDisplayShort(
                         this.tileEntity.getProductionRate() * 20,
-                        ElectricityDisplay.ElectricUnit.JOULES),
+                        UnitDisplay.Unit.JOULES),
                 120, 117, 4210752);
         super.drawGuiContainerForegroundLayer(x, y);
     }

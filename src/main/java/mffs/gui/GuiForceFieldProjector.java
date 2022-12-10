@@ -7,7 +7,7 @@ import mffs.tileentity.TileEntityForceFieldProjector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
-import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.api.energy.UnitDisplay;
 import universalelectricity.core.vector.Vector2;
 import universalelectricity.prefab.vector.Region2;
 
@@ -89,18 +89,18 @@ public class GuiForceFieldProjector extends GuiBase {
     super.textFieldFrequency.drawTextBox();
     this.drawTextWithTooltip("fortron",
                              "%1: " +
-                                 ElectricityDisplay.getDisplayShort(
+                                 UnitDisplay.getDisplayShort(
                                      this.tileEntity.getFortronEnergy() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
-                                     ElectricityDisplay.ElectricUnit.JOULES) +
+                                     UnitDisplay.Unit.JOULES) +
                                  "/" +
-                                 ElectricityDisplay.getDisplayShort(
+                                 UnitDisplay.getDisplayShort(
                                      this.tileEntity.getFortronCapacity() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
-                                     ElectricityDisplay.ElectricUnit.JOULES),
+                                     UnitDisplay.Unit.JOULES),
                              8, 110, x, y);
     this.fontRendererObj.drawString(
-        "§4-" + ElectricityDisplay.getDisplayShort(
+        "§4-" + UnitDisplay.getDisplayShort(
                     this.tileEntity.getFortronCost() * 20,
-                    ElectricityDisplay.ElectricUnit.JOULES),
+                    UnitDisplay.Unit.JOULES),
         120, 121, 4210752);
     super.drawGuiContainerForegroundLayer(x, y);
   }

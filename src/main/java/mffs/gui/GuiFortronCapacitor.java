@@ -11,7 +11,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import org.lwjgl.opengl.GL11;
-import universalelectricity.core.electricity.ElectricityDisplay;
+import universalelectricity.api.energy.UnitDisplay;
 import universalelectricity.core.vector.Vector2;
 import universalelectricity.core.vector.Vector3;
 
@@ -49,9 +49,9 @@ public class GuiFortronCapacitor extends GuiBase {
                              8, 28, x, y);
     this.drawTextWithTooltip("transmissionRate",
                              "%1: " +
-                                 ElectricityDisplay.getDisplayShort(
+                                 UnitDisplay.getDisplayShort(
                                      this.tileEntity.getTransmissionRate(),
-                                     ElectricityDisplay.ElectricUnit.JOULES),
+                                     UnitDisplay.Unit.JOULES),
                              8, 40, x, y);
     this.drawTextWithTooltip(
         "range", "%1: " + this.tileEntity.getTransmissionRange(), 8, 52, x, y);
@@ -59,13 +59,13 @@ public class GuiFortronCapacitor extends GuiBase {
     super.textFieldFrequency.drawTextBox();
     this.drawTextWithTooltip("fortron", "%1:", 8, 95, x, y);
     this.fontRendererObj.drawString(
-        ElectricityDisplay.getDisplayShort(
+        UnitDisplay.getDisplayShort(
             this.tileEntity.getFortronEnergy() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
-            ElectricityDisplay.ElectricUnit.JOULES) +
+            UnitDisplay.Unit.JOULES) +
             "/" +
-            ElectricityDisplay.getDisplayShort(
+            UnitDisplay.getDisplayShort(
                 this.tileEntity.getFortronCapacity() * TileEntityCoercionDeriver.FORTRON_UE_RATIO,
-                ElectricityDisplay.ElectricUnit.JOULES),
+                UnitDisplay.Unit.JOULES),
         8, 105, 4210752);
     super.drawGuiContainerForegroundLayer(x, y);
   }
