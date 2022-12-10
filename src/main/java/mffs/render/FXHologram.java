@@ -88,6 +88,6 @@ public class FXHologram extends EntityFX {
     CalclaviaRenderHelper.disableBlending();
     GL11.glPopMatrix();
     tessellator.startDrawingQuads();
-    Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("particles"));
+    Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("textures/particle/particles.png"));
   }
 }

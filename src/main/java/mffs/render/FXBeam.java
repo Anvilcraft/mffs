@@ -180,6 +180,6 @@ public class FXBeam extends EntityFX {
     GL11.glPopMatrix();
     tessellator.startDrawingQuads();
     this.prevSize = size;
-    Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("particles"));
+    Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("textures/particle/particles.png"));
   }
 }
