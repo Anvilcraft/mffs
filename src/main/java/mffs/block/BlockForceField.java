@@ -18,6 +18,7 @@ import mffs.tileentity.TileEntityForceField;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -114,14 +115,20 @@ public class BlockForceField
   public AxisAlignedBB getCollisionBoundingBoxFromPool(final World world,
                                                        final int x, final int y,
                                                        final int z) {
-    if (this.getProjector((IBlockAccess)world, x, y, z) != null) {
+    if (world.isRemote) {
+      EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+      if (player.isSneaking()) {
+        return null;
+      }
+    }
+    if (this.getProjector((IBlockAccess)world, x, y, z) != null && !world.isRemote) {
       final IBiometricIdentifier BiometricIdentifier =
           this.getProjector((IBlockAccess)world, x, y, z)
               .getBiometricIdentifier();
       final List entities = world.getEntitiesWithinAABB(
           EntityPlayer.class, AxisAlignedBB.getBoundingBox(
-                                  (double)x, (double)y, (double)z,
-                                  (double)(x + 1), y + 0.9, (double)(z + 1)));
+                                  (double)(x), (double)y, (double)(z),
+                                  (double)(x + 1), y + 1, (double)(z + 1)));
       for (final EntityPlayer entityPlayer : (List<EntityPlayer>)entities) {
         if (entityPlayer != null && entityPlayer.isSneaking()) {
           if (entityPlayer.capabilities.isCreativeMode) {
@@ -138,8 +145,8 @@ public class BlockForceField
     }
     final float f = 0.0625f;
     return AxisAlignedBB.getBoundingBox(
-        (double)(x + f), (double)(y + f), (double)(z + f), (double)(x + 1 - f),
-        (double)(y + 1 - f), (double)(z + 1 - f));
+      (double)(x + f), (double)(y + f), (double)(z + f), (double)(x + 1 - f),
+      (double)(y + 1 - f), (double)(z + 1 - f));
   }
 
   @Override

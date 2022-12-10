@@ -23,6 +23,7 @@ public class GuiBiometricIdentifier extends GuiBase {
             final TileEntityBiometricIdentifier tileEntity) {
         super(new ContainerBiometricIdentifier(player, tileEntity), tileEntity);
         this.tileEntity = tileEntity;
+        tileEntity.canUpdate();
     }
 
     @Override
@@ -141,7 +142,11 @@ public class GuiBiometricIdentifier extends GuiBase {
 
     @Override
     protected void actionPerformed(final GuiButton guiButton) {
-        ModularForceFieldSystem.channel.sendToServer(new PacketTile(
-                PacketTile.Type.TOGGLE_MODE, new Vector3(this.tileEntity), new NBTTagCompound()));
+        super.actionPerformed(guiButton);
+        if (guiButton.id > 0) {
+            NBTTagCompound nbt = new NBTTagCompound();
+            nbt.setInteger("buttonId", guiButton.id - 1);
+            ModularForceFieldSystem.channel.sendToServer(new PacketTile(PacketTile.Type.TOGGLE_MODE, new Vector3(this.tileEntity), nbt));
+        }
     }
 }
