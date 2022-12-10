@@ -27,12 +27,14 @@ public abstract class TileEntityUniversalEnergy
 
   public TileEntityUniversalEnergy() { this.wattsReceived = 0.0; }
 
+  @Optional.Method(modid = "IC2")
   @Override                                                                                                                                                                                 
   public void initiate() {                                                                                                                                                                  
       super.initiate();                                                                                                                                                                     
       MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));                                                                                                                         
   }                                                                                                                                                                                         
-                                                                                                                                                                                            
+                                 
+  @Optional.Method(modid = "IC2")
   @Override                                                                                                                                                                                 
   public void invalidate() {                                                                                                                                                                
       MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));                                                                                                                       
