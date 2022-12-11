@@ -3,6 +3,7 @@ package mffs.item.module.projector;
 import java.util.Set;
 import mffs.api.IProjector;
 import mffs.item.module.ItemModule;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -21,7 +22,7 @@ public class ItemModuleSponge extends ItemModule {
     if (projector.getTicks() % 60L == 0L) {
       final World world = ((TileEntity)projector).getWorldObj();
       for (final Vector3 point : projector.getInteriorPoints()) {
-        if (point.getBlock(world) instanceof IFluidBlock) {
+        if (point.getBlock(world) instanceof IFluidBlock || point.getBlock(world) instanceof BlockLiquid) {
           point.setBlock(world, Blocks.air);
         }
       }
