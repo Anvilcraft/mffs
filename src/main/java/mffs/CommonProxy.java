@@ -91,4 +91,8 @@ public class CommonProxy implements IGuiHandler {
   public void renderHologramMoving(final World world, final Vector3 position,
                                    final float red, final float green,
                                    final float blue, final int age) {}
+
+  public boolean isSneaking() {
+    return false;
+  }
 }

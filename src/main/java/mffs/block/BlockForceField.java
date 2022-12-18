@@ -116,8 +116,7 @@ public class BlockForceField
                                                        final int x, final int y,
                                                        final int z) {
     if (world.isRemote) {
-      EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-      if (player.isSneaking()) {
+      if (ModularForceFieldSystem.proxy.isSneaking()) {
         return null;
       }
     }

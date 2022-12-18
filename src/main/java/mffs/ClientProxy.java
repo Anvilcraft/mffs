@@ -4,6 +4,9 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.relauncher.Side;
+import mffs.base.PacketFxs;
+import mffs.base.PacketFxsHandler;
 import mffs.gui.GuiBiometricIdentifier;
 import mffs.gui.GuiCoercionDeriver;
 import mffs.gui.GuiForceFieldProjector;
@@ -26,6 +29,7 @@ import mffs.tileentity.TileEntityForceFieldProjector;
 import mffs.tileentity.TileEntityForceManipulator;
 import mffs.tileentity.TileEntityFortronCapacitor;
 import mffs.tileentity.TileEntityInterdictionMatrix;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -36,6 +40,14 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import universalelectricity.core.vector.Vector3;
 
 public class ClientProxy extends CommonProxy {
+
+  @Override
+  public void preInit() {
+    ModularForceFieldSystem.channel.registerMessage(PacketFxsHandler.class, PacketFxs.class,
+      1, Side.CLIENT);
+      super.preInit();
+  }
+
   @Override
   public void init() {
     super.init();
@@ -127,5 +139,11 @@ public class ClientProxy extends CommonProxy {
                                    final float blue, final int age) {
     FMLClientHandler.instance().getClient().effectRenderer.addEffect((
         EntityFX) new FXHologramMoving(world, position, red, green, blue, age));
+  }
+
+  @Override
+  public boolean isSneaking() {
+    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+    return player.isSneaking();
   }
 }

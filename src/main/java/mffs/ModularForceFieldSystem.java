@@ -258,7 +258,6 @@ public class ModularForceFieldSystem {
                                     "tileInterdictionMatrix");
     GameRegistry.registerTileEntity(TileEntityForceManipulator.class,
                                     "tileForceManipulator");
-    ModularForceFieldSystem.proxy.preInit();
 
     FluidRegistry.registerFluid(FortronHelper.FLUID_FORTRON);
 
@@ -304,12 +303,9 @@ public class ModularForceFieldSystem {
 
     channel =
         NetworkRegistry.INSTANCE.newSimpleChannel("ModularForceFieldSystem");
-
-    int pkgDiscriminator = 0;
+    ModularForceFieldSystem.proxy.preInit();
     channel.registerMessage(PacketTileHandler.class, PacketTile.class,
-                            pkgDiscriminator++, Side.SERVER);
-    channel.registerMessage(PacketFxsHandler.class, PacketFxs.class,
-                            pkgDiscriminator++, Side.CLIENT);
+                            0, Side.SERVER);
   }
 
   @EventHandler
