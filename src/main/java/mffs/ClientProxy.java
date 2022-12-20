@@ -4,9 +4,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.relauncher.Side;
-import mffs.base.PacketFxs;
-import mffs.base.PacketFxsHandler;
 import mffs.gui.GuiBiometricIdentifier;
 import mffs.gui.GuiCoercionDeriver;
 import mffs.gui.GuiForceFieldProjector;
@@ -40,13 +37,6 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import universalelectricity.core.vector.Vector3;
 
 public class ClientProxy extends CommonProxy {
-
-  @Override
-  public void preInit() {
-    ModularForceFieldSystem.channel.registerMessage(PacketFxsHandler.class, PacketFxs.class,
-      1, Side.CLIENT);
-      super.preInit();
-  }
 
   @Override
   public void init() {
