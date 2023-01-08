@@ -1,23 +1,28 @@
-// 
+//
 // Decompiled by Procyon v0.6.0
-// 
+//
 
 package mffs.gui.button;
 
-import net.minecraft.client.Minecraft;
-import universalelectricity.core.vector.Vector2;
 import mffs.base.GuiBase;
 import mffs.tileentity.TileEntityFortronCapacitor;
+import net.minecraft.client.Minecraft;
+import universalelectricity.core.vector.Vector2;
 
-public class GuiButtonPressTransferMode extends GuiButtonPress
-{
+public class GuiButtonPressTransferMode extends GuiButtonPress {
     private TileEntityFortronCapacitor tileEntity;
-    
-    public GuiButtonPressTransferMode(final int id, final int x, final int y, final GuiBase mainGui, final TileEntityFortronCapacitor tileEntity) {
+
+    public GuiButtonPressTransferMode(
+        final int id,
+        final int x,
+        final int y,
+        final GuiBase mainGui,
+        final TileEntityFortronCapacitor tileEntity
+    ) {
         super(id, x, y, new Vector2(), mainGui);
         this.tileEntity = tileEntity;
     }
-    
+
     @Override
     public void drawButton(final Minecraft minecraft, final int x, final int y) {
         String transferName = this.tileEntity.getTransferMode().name().toLowerCase();

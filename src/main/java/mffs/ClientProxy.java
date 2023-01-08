@@ -37,103 +37,135 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import universalelectricity.core.vector.Vector3;
 
 public class ClientProxy extends CommonProxy {
-
-  @Override
-  public void init() {
-    super.init();
-    RenderingRegistry.registerBlockHandler(
-        (ISimpleBlockRenderingHandler) new RenderBlockHandler());
-    RenderingRegistry.registerBlockHandler(
-        (ISimpleBlockRenderingHandler) new RenderForceField());
-    MinecraftForgeClient.registerItemRenderer(
-        ModularForceFieldSystem.itemCardID, (IItemRenderer) new RenderIDCard());
-    ClientRegistry.bindTileEntitySpecialRenderer(
-        TileEntityFortronCapacitor.class,
-        (TileEntitySpecialRenderer) new RenderFortronCapacitor());
-    ClientRegistry.bindTileEntitySpecialRenderer(
-        TileEntityCoercionDeriver.class,
-        (TileEntitySpecialRenderer) new RenderCoercionDeriver());
-    ClientRegistry.bindTileEntitySpecialRenderer(
-        TileEntityForceManipulator.class,
-        (TileEntitySpecialRenderer) new RenderForceManipulator());
-    ClientRegistry.bindTileEntitySpecialRenderer(
-        TileEntityForceFieldProjector.class,
-        (TileEntitySpecialRenderer) new RenderForceFieldProjector());
-  }
-
-  @Override
-  public World getClientWorld() {
-    return (World)FMLClientHandler.instance().getClient().theWorld;
-  }
-
-  @Override
-  public Object getClientGuiElement(final int ID, final EntityPlayer player,
-                                    final World world, final int x, final int y,
-                                    final int z) {
-    final TileEntity tileEntity = world.getTileEntity(x, y, z);
-    if (tileEntity != null) {
-      if (tileEntity.getClass() == TileEntityFortronCapacitor.class) {
-        return new GuiFortronCapacitor(player,
-                                       (TileEntityFortronCapacitor)tileEntity);
-      }
-      if (tileEntity.getClass() == TileEntityForceFieldProjector.class) {
-        return new GuiForceFieldProjector(
-            player, (TileEntityForceFieldProjector)tileEntity);
-      }
-      if (tileEntity.getClass() == TileEntityCoercionDeriver.class) {
-        return new GuiCoercionDeriver(player,
-                                      (TileEntityCoercionDeriver)tileEntity);
-      }
-      if (tileEntity.getClass() == TileEntityBiometricIdentifier.class) {
-        return new GuiBiometricIdentifier(
-            player, (TileEntityBiometricIdentifier)tileEntity);
-      }
-      if (tileEntity.getClass() == TileEntityInterdictionMatrix.class) {
-        return new GuiInterdictionMatrix(
-            player, (TileEntityInterdictionMatrix)tileEntity);
-      }
-      if (tileEntity.getClass() == TileEntityForceManipulator.class) {
-        return new GuiForceManipulator(player,
-                                       (TileEntityForceManipulator)tileEntity);
-      }
+    @Override
+    public void init() {
+        super.init();
+        RenderingRegistry.registerBlockHandler((ISimpleBlockRenderingHandler
+        ) new RenderBlockHandler());
+        RenderingRegistry.registerBlockHandler((ISimpleBlockRenderingHandler
+        ) new RenderForceField());
+        MinecraftForgeClient.registerItemRenderer(
+            ModularForceFieldSystem.itemCardID, (IItemRenderer) new RenderIDCard()
+        );
+        ClientRegistry.bindTileEntitySpecialRenderer(
+            TileEntityFortronCapacitor.class,
+            (TileEntitySpecialRenderer) new RenderFortronCapacitor()
+        );
+        ClientRegistry.bindTileEntitySpecialRenderer(
+            TileEntityCoercionDeriver.class,
+            (TileEntitySpecialRenderer) new RenderCoercionDeriver()
+        );
+        ClientRegistry.bindTileEntitySpecialRenderer(
+            TileEntityForceManipulator.class,
+            (TileEntitySpecialRenderer) new RenderForceManipulator()
+        );
+        ClientRegistry.bindTileEntitySpecialRenderer(
+            TileEntityForceFieldProjector.class,
+            (TileEntitySpecialRenderer) new RenderForceFieldProjector()
+        );
     }
-    return null;
-  }
 
-  @Override
-  public boolean isOp(final String username) {
-    return false;
-  }
+    @Override
+    public World getClientWorld() {
+        return (World) FMLClientHandler.instance().getClient().theWorld;
+    }
 
-  @Override
-  public void renderBeam(final World world, final Vector3 position,
-                         final Vector3 target, final float red,
-                         final float green, final float blue, final int age) {
-    FMLClientHandler.instance().getClient().effectRenderer.addEffect(
-        (EntityFX) new FXBeam(world, position, target, red, green, blue, age));
-  }
+    @Override
+    public Object getClientGuiElement(
+        final int ID,
+        final EntityPlayer player,
+        final World world,
+        final int x,
+        final int y,
+        final int z
+    ) {
+        final TileEntity tileEntity = world.getTileEntity(x, y, z);
+        if (tileEntity != null) {
+            if (tileEntity.getClass() == TileEntityFortronCapacitor.class) {
+                return new GuiFortronCapacitor(
+                    player, (TileEntityFortronCapacitor) tileEntity
+                );
+            }
+            if (tileEntity.getClass() == TileEntityForceFieldProjector.class) {
+                return new GuiForceFieldProjector(
+                    player, (TileEntityForceFieldProjector) tileEntity
+                );
+            }
+            if (tileEntity.getClass() == TileEntityCoercionDeriver.class) {
+                return new GuiCoercionDeriver(
+                    player, (TileEntityCoercionDeriver) tileEntity
+                );
+            }
+            if (tileEntity.getClass() == TileEntityBiometricIdentifier.class) {
+                return new GuiBiometricIdentifier(
+                    player, (TileEntityBiometricIdentifier) tileEntity
+                );
+            }
+            if (tileEntity.getClass() == TileEntityInterdictionMatrix.class) {
+                return new GuiInterdictionMatrix(
+                    player, (TileEntityInterdictionMatrix) tileEntity
+                );
+            }
+            if (tileEntity.getClass() == TileEntityForceManipulator.class) {
+                return new GuiForceManipulator(
+                    player, (TileEntityForceManipulator) tileEntity
+                );
+            }
+        }
+        return null;
+    }
 
-  @Override
-  public void renderHologram(final World world, final Vector3 position,
-                             final float red, final float green,
-                             final float blue, final int age,
-                             final Vector3 targetPosition) {
-    FMLClientHandler.instance().getClient().effectRenderer.addEffect(
-        (EntityFX) new FXHologram(world, position, red, green, blue, age)
-            .setTarget(targetPosition));
-  }
+    @Override
+    public boolean isOp(final String username) {
+        return false;
+    }
 
-  @Override
-  public void renderHologramMoving(final World world, final Vector3 position,
-                                   final float red, final float green,
-                                   final float blue, final int age) {
-    FMLClientHandler.instance().getClient().effectRenderer.addEffect((
-        EntityFX) new FXHologramMoving(world, position, red, green, blue, age));
-  }
+    @Override
+    public void renderBeam(
+        final World world,
+        final Vector3 position,
+        final Vector3 target,
+        final float red,
+        final float green,
+        final float blue,
+        final int age
+    ) {
+        FMLClientHandler.instance().getClient().effectRenderer.addEffect((EntityFX
+        ) new FXBeam(world, position, target, red, green, blue, age));
+    }
 
-  @Override
-  public boolean isSneaking() {
-    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-    return player.isSneaking();
-  }
+    @Override
+    public void renderHologram(
+        final World world,
+        final Vector3 position,
+        final float red,
+        final float green,
+        final float blue,
+        final int age,
+        final Vector3 targetPosition
+    ) {
+        FMLClientHandler.instance().getClient().effectRenderer.addEffect(
+            (EntityFX) new FXHologram(world, position, red, green, blue, age)
+                .setTarget(targetPosition)
+        );
+    }
+
+    @Override
+    public void renderHologramMoving(
+        final World world,
+        final Vector3 position,
+        final float red,
+        final float green,
+        final float blue,
+        final int age
+    ) {
+        FMLClientHandler.instance().getClient().effectRenderer.addEffect((EntityFX
+        ) new FXHologramMoving(world, position, red, green, blue, age));
+    }
+
+    @Override
+    public boolean isSneaking() {
+        EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        return player.isSneaking();
+    }
 }

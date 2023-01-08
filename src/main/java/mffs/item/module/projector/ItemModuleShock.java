@@ -8,17 +8,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemModuleShock extends ItemModule {
-  public ItemModuleShock() { super("moduleShock"); }
-
-  @Override
-  public boolean onCollideWithForceField(final World world, final int x,
-                                         final int y, final int z,
-                                         final Entity entity,
-                                         final ItemStack moduleStack) {
-    if (entity instanceof EntityLiving) {
-      entity.attackEntityFrom(ModularForceFieldSystem.damagefieldShock,
-                              moduleStack.stackSize);
+    public ItemModuleShock() {
+        super("moduleShock");
     }
-    return false;
-  }
+
+    @Override
+    public boolean onCollideWithForceField(
+        final World world,
+        final int x,
+        final int y,
+        final int z,
+        final Entity entity,
+        final ItemStack moduleStack
+    ) {
+        if (entity instanceof EntityLiving) {
+            entity.attackEntityFrom(
+                ModularForceFieldSystem.damagefieldShock, moduleStack.stackSize
+            );
+        }
+        return false;
+    }
 }

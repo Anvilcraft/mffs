@@ -18,17 +18,25 @@ public class RenderForceField implements ISimpleBlockRenderingHandler {
     public static final int ID;
 
     @Override
-    public void renderInventoryBlock(final Block block, final int metadata,
-            final int modelID,
-            final RenderBlocks renderer) {
+    public void renderInventoryBlock(
+        final Block block,
+        final int metadata,
+        final int modelID,
+        final RenderBlocks renderer
+    ) {
         CalclaviaRenderHelper.renderNormalBlockAsItem(block, metadata, renderer);
     }
 
     @Override
-    public boolean renderWorldBlock(final IBlockAccess iBlockAccess, final int x,
-            final int y, final int z, final Block block,
-            final int modelId,
-            final RenderBlocks renderer) {
+    public boolean renderWorldBlock(
+        final IBlockAccess iBlockAccess,
+        final int x,
+        final int y,
+        final int z,
+        final Block block,
+        final int modelId,
+        final RenderBlocks renderer
+    ) {
         int renderType = 0;
         final TileEntity tileEntity = iBlockAccess.getTileEntity(x, y, z);
         if (tileEntity instanceof TileEntityForceField) {
@@ -40,7 +48,9 @@ public class RenderForceField implements ISimpleBlockRenderingHandler {
                 }
             }
         }
-        ModularForceFieldSystem.LOGGER.fine("Render block: " + block.getUnlocalizedName());
+        ModularForceFieldSystem.LOGGER.fine(
+            "Render block: " + block.getUnlocalizedName()
+        );
         if (renderType >= 0) {
             switch (renderType) {
                 case 4: {

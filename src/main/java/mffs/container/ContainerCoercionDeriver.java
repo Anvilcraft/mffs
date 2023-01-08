@@ -9,8 +9,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 
 public class ContainerCoercionDeriver extends ContainerBase {
-    public ContainerCoercionDeriver(final EntityPlayer player,
-            final TileEntityCoercionDeriver tileEntity) {
+    public ContainerCoercionDeriver(
+        final EntityPlayer player, final TileEntityCoercionDeriver tileEntity
+    ) {
         super((IInventory) tileEntity);
         this.addSlotToContainer((Slot) new SlotCard(tileEntity, 0, 9, 41));
         this.addSlotToContainer((Slot) new SlotBase(tileEntity, 1, 9, 83));

@@ -17,11 +17,16 @@ public abstract class BlockMachineBlock extends BlockMachine {
     }
 
     @Override
-    public IIcon getIcon(final IBlockAccess par1IBlockAccess, final int x,
-            final int y, final int z, final int side) {
+    public IIcon getIcon(
+        final IBlockAccess par1IBlockAccess,
+        final int x,
+        final int y,
+        final int z,
+        final int side
+    ) {
         final TileEntity tileEntity = par1IBlockAccess.getTileEntity(x, y, z);
-        if (tileEntity instanceof TileEntityBase &&
-                ((TileEntityBase) tileEntity).isActive()) {
+        if (tileEntity instanceof TileEntityBase
+            && ((TileEntityBase) tileEntity).isActive()) {
             if (side == 0 || side == 1) {
                 return this.blockIconTopOn;
             }
@@ -36,14 +41,14 @@ public abstract class BlockMachineBlock extends BlockMachine {
 
     @Override
     public void registerBlockIcons(final IIconRegister reg) {
-        this.blockIcon = reg.registerIcon(
-                this.getUnlocalizedName().replace("tile.", ""));
-        this.blockIconTop = reg.registerIcon(
-                this.getUnlocalizedName().replace("tile.", "") + "_top");
-        this.blockIconOn = reg.registerIcon(
-                this.getUnlocalizedName().replace("tile.", "") + "_on");
+        this.blockIcon = reg.registerIcon(this.getUnlocalizedName().replace("tile.", ""));
+        this.blockIconTop
+            = reg.registerIcon(this.getUnlocalizedName().replace("tile.", "") + "_top");
+        this.blockIconOn
+            = reg.registerIcon(this.getUnlocalizedName().replace("tile.", "") + "_on");
         this.blockIconTopOn = reg.registerIcon(
-                this.getUnlocalizedName().replace("tile.", "") + "_top_on");
+            this.getUnlocalizedName().replace("tile.", "") + "_top_on"
+        );
     }
 
     @Override

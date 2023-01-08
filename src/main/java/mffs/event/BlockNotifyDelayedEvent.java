@@ -14,9 +14,12 @@ public class BlockNotifyDelayedEvent extends DelayedEvent {
     private World world;
     private Vector3 position;
 
-    public BlockNotifyDelayedEvent(final IDelayedEventHandler handler,
-            final int ticks, final World world,
-            final Vector3 position) {
+    public BlockNotifyDelayedEvent(
+        final IDelayedEventHandler handler,
+        final int ticks,
+        final World world,
+        final Vector3 position
+    ) {
         super(handler, ticks);
         this.world = world;
         this.position = position;
@@ -26,21 +29,29 @@ public class BlockNotifyDelayedEvent extends DelayedEvent {
     protected void onEvent() {
         if (!this.world.isRemote) {
             this.world.notifyBlocksOfNeighborChange(
-                    this.position.intX(), this.position.intY(), this.position.intZ(),
-                    this.position.getBlock((IBlockAccess) this.world));
-            final TileEntity newTile = this.position.getTileEntity((IBlockAccess) this.world);
+                this.position.intX(),
+                this.position.intY(),
+                this.position.intZ(),
+                this.position.getBlock((IBlockAccess) this.world)
+            );
+            final TileEntity newTile
+                = this.position.getTileEntity((IBlockAccess) this.world);
             if (newTile != null) {
                 if (newTile instanceof ISpecialForceManipulation) {
                     ((ISpecialForceManipulation) newTile).postMove();
                 }
                 if (Loader.isModLoaded("BuildCraft|Factory")) {
                     try {
-                        final Class clazz = Class.forName("buildcraft.factory.TileQuarry");
+                        final Class clazz
+                            = Class.forName("buildcraft.factory.TileQuarry");
                         if (clazz == newTile.getClass()) {
                             // TODO: W T F AAAAAAAAAAAAA
-                            ReflectionHelper.setPrivateValue(clazz, (Object) newTile,
-                                    (Object) true,
-                                    new String[] { "isAlive" });
+                            ReflectionHelper.setPrivateValue(
+                                clazz,
+                                (Object) newTile,
+                                (Object) true,
+                                new String[] { "isAlive" }
+                            );
                         }
                     } catch (final Exception e) {
                         e.printStackTrace();

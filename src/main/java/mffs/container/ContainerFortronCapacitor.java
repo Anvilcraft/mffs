@@ -12,7 +12,8 @@ public class ContainerFortronCapacitor extends ContainerBase {
     private TileEntityFortronCapacitor tileEntity;
 
     public ContainerFortronCapacitor(
-            final EntityPlayer player, final TileEntityFortronCapacitor tileEntity) {
+        final EntityPlayer player, final TileEntityFortronCapacitor tileEntity
+    ) {
         super((IInventory) tileEntity);
         this.tileEntity = tileEntity;
         this.addSlotToContainer((Slot) new SlotCard(this.tileEntity, 0, 9, 74));

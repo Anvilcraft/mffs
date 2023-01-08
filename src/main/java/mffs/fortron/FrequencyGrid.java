@@ -1,11 +1,12 @@
 package mffs.fortron;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import icbm.api.IBlockFrequency;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import icbm.api.IBlockFrequency;
 import mffs.api.fortron.IFortronFrequency;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -31,7 +32,7 @@ public class FrequencyGrid {
                     it.remove();
                 } else {
                     if (!new Vector3((TileEntity) frequency)
-                            .equals(new Vector3((TileEntity) tileEntity))) {
+                             .equals(new Vector3((TileEntity) tileEntity))) {
                         continue;
                     }
                     it.remove();
@@ -55,8 +56,8 @@ public class FrequencyGrid {
     public Set<IBlockFrequency> get(final int frequency) {
         final Set<IBlockFrequency> set = new HashSet<>();
         for (final IBlockFrequency tile : this.get()) {
-            if (tile != null && !((TileEntity) tile).isInvalid() &&
-                    tile.getFrequency() == frequency) {
+            if (tile != null && !((TileEntity) tile).isInvalid()
+                && tile.getFrequency() == frequency) {
                 set.add(tile);
             }
         }
@@ -73,10 +74,14 @@ public class FrequencyGrid {
                 } else if (((TileEntity) frequency).isInvalid()) {
                     it.remove();
                 } else {
-                    if (((TileEntity) frequency).getWorldObj().getTileEntity(
-                            ((TileEntity) frequency).xCoord,
-                            ((TileEntity) frequency).yCoord,
-                            ((TileEntity) frequency).zCoord) == (TileEntity) frequency) {
+                    if (((TileEntity) frequency)
+                            .getWorldObj()
+                            .getTileEntity(
+                                ((TileEntity) frequency).xCoord,
+                                ((TileEntity) frequency).yCoord,
+                                ((TileEntity) frequency).zCoord
+                            )
+                        == (TileEntity) frequency) {
                         continue;
                     }
                     it.remove();
@@ -87,25 +92,29 @@ public class FrequencyGrid {
         }
     }
 
-    public Set<IBlockFrequency> get(final World world, final Vector3 position, final int radius,
-            final int frequency) {
+    public Set<IBlockFrequency>
+    get(final World world, final Vector3 position, final int radius, final int frequency
+    ) {
         final Set set = new HashSet();
         for (final IBlockFrequency tileEntity : this.get(frequency)) {
-            if (((TileEntity) tileEntity).getWorldObj() == world &&
-                    Vector3.distance(new Vector3((TileEntity) tileEntity), position) <= radius) {
+            if (((TileEntity) tileEntity).getWorldObj() == world
+                && Vector3.distance(new Vector3((TileEntity) tileEntity), position)
+                    <= radius) {
                 set.add(tileEntity);
             }
         }
         return set;
     }
 
-    public Set<IFortronFrequency> getFortronTiles(final World world, final Vector3 position,
-            final int radius, final int frequency) {
+    public Set<IFortronFrequency> getFortronTiles(
+        final World world, final Vector3 position, final int radius, final int frequency
+    ) {
         final Set set = new HashSet();
         for (final IBlockFrequency tileEntity : this.get(frequency)) {
-            if (((TileEntity) tileEntity).getWorldObj() == world &&
-                    tileEntity instanceof IFortronFrequency &&
-                    Vector3.distance(new Vector3((TileEntity) tileEntity), position) <= radius) {
+            if (((TileEntity) tileEntity).getWorldObj() == world
+                && tileEntity instanceof IFortronFrequency
+                && Vector3.distance(new Vector3((TileEntity) tileEntity), position)
+                    <= radius) {
                 set.add(tileEntity);
             }
         }

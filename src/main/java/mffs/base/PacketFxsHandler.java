@@ -10,7 +10,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class PacketFxsHandler implements IMessageHandler<PacketFxs, IMessage> {
-
     @Override
     @SideOnly(Side.CLIENT)
     public IMessage onMessage(PacketFxs message, MessageContext ctx) {

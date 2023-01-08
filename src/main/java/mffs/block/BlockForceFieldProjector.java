@@ -19,20 +19,31 @@ public class BlockForceFieldProjector extends BlockMachine {
     }
 
     @Override
-    public boolean onMachineActivated(final World world, final int i, final int j, final int k,
-            final EntityPlayer entityplayer, final int par6,
-            final float par7, final float par8, final float par9) {
-        final TileEntityForceFieldProjector tileentity = (TileEntityForceFieldProjector) world.getTileEntity(i, j, k);
-        return !tileentity.isDisabled() &&
-                super.onMachineActivated(world, i, j, k, entityplayer, par6, par7, par8,
-                        par9);
+    public boolean onMachineActivated(
+        final World world,
+        final int i,
+        final int j,
+        final int k,
+        final EntityPlayer entityplayer,
+        final int par6,
+        final float par7,
+        final float par8,
+        final float par9
+    ) {
+        final TileEntityForceFieldProjector tileentity
+            = (TileEntityForceFieldProjector) world.getTileEntity(i, j, k);
+        return !tileentity.isDisabled()
+            && super.onMachineActivated(
+                world, i, j, k, entityplayer, par6, par7, par8, par9
+            );
     }
 
-    public int getLightValue(final IBlockAccess iBlockAccess, final int x,
-            final int y, final int z) {
+    public int getLightValue(
+        final IBlockAccess iBlockAccess, final int x, final int y, final int z
+    ) {
         final TileEntity tileEntity = iBlockAccess.getTileEntity(x, y, z);
-        if (tileEntity instanceof TileEntityForceFieldProjector &&
-                ((TileEntityForceFieldProjector) tileEntity).getMode() != null) {
+        if (tileEntity instanceof TileEntityForceFieldProjector
+            && ((TileEntityForceFieldProjector) tileEntity).getMode() != null) {
             return 10;
         }
         return super.getLightValue(iBlockAccess, x, y, z);

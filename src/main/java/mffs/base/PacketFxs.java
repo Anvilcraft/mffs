@@ -1,12 +1,13 @@
 package mffs.base;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.buffer.ByteBufOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import universalelectricity.core.vector.Vector3;
@@ -29,7 +30,8 @@ public class PacketFxs implements IMessage {
         NBTTagCompound nbt = null;
         try {
             nbt = CompressedStreamTools.read(
-                    new DataInputStream(new ByteBufInputStream(buf)));
+                new DataInputStream(new ByteBufInputStream(buf))
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,7 +49,8 @@ public class PacketFxs implements IMessage {
 
         try {
             CompressedStreamTools.write(
-                    nbt, new DataOutputStream(new ByteBufOutputStream(buf)));
+                nbt, new DataOutputStream(new ByteBufOutputStream(buf))
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }

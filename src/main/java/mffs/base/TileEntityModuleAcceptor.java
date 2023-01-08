@@ -14,7 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public abstract class TileEntityModuleAcceptor
-        extends TileEntityFortron implements IModuleAcceptor, ICache {
+    extends TileEntityFortron implements IModuleAcceptor, ICache {
     public final HashMap<String, Object> cache;
     public int startModuleIndex;
     public int endModuleIndex;
@@ -33,11 +33,11 @@ public abstract class TileEntityModuleAcceptor
     public void initiate() {
         super.initiate();
         super.fortronTank.setCapacity(
-                (this.getModuleCount(ModularForceFieldSystem.itemModuleCapacity,
-                        new int[0]) *
-                        this.capacityBoost +
-                        this.capacityBase) *
-                        1000);
+            (this.getModuleCount(ModularForceFieldSystem.itemModuleCapacity, new int[0])
+                 * this.capacityBoost
+             + this.capacityBase)
+            * 1000
+        );
     }
 
     public void consumeCost() {
@@ -49,8 +49,8 @@ public abstract class TileEntityModuleAcceptor
     @Override
     public ItemStack getModule(final IModule module) {
         final String cacheID = "getModule_" + module.hashCode();
-        if (Settings.USE_CACHE && this.cache.containsKey(cacheID) &&
-                this.cache.get(cacheID) instanceof ItemStack) {
+        if (Settings.USE_CACHE && this.cache.containsKey(cacheID)
+            && this.cache.get(cacheID) instanceof ItemStack) {
             return (ItemStack) this.cache.get(cacheID);
         }
         final ItemStack returnStack = new ItemStack((Item) module, 0);
@@ -74,14 +74,14 @@ public abstract class TileEntityModuleAcceptor
             if (slots != null) {
                 cacheID = cacheID + "_" + Arrays.hashCode(slots);
             }
-            if (Settings.USE_CACHE && this.cache.containsKey(cacheID) &&
-                    this.cache.get(cacheID) instanceof Integer) {
+            if (Settings.USE_CACHE && this.cache.containsKey(cacheID)
+                && this.cache.get(cacheID) instanceof Integer) {
                 return (int) this.cache.get(cacheID);
             }
             if (slots != null && slots.length > 0) {
                 for (final int slotID : slots) {
-                    if (this.getStackInSlot(slotID) != null &&
-                            this.getStackInSlot(slotID).getItem() == module) {
+                    if (this.getStackInSlot(slotID) != null
+                        && this.getStackInSlot(slotID).getItem() == module) {
                         count += this.getStackInSlot(slotID).stackSize;
                     }
                 }
@@ -105,13 +105,14 @@ public abstract class TileEntityModuleAcceptor
         if (slots != null) {
             cacheID += Arrays.hashCode(slots);
         }
-        if (Settings.USE_CACHE && this.cache.containsKey(cacheID) &&
-                this.cache.get(cacheID) instanceof Set<?>) {
+        if (Settings.USE_CACHE && this.cache.containsKey(cacheID)
+            && this.cache.get(cacheID) instanceof Set<?>) {
             return (Set<ItemStack>) this.cache.get(cacheID);
         }
         final Set<ItemStack> modules = new HashSet<>();
         if (slots == null || slots.length <= 0) {
-            for (int slotID = this.startModuleIndex; slotID <= this.endModuleIndex; ++slotID) {
+            for (int slotID = this.startModuleIndex; slotID <= this.endModuleIndex;
+                 ++slotID) {
                 final ItemStack itemStack = this.getStackInSlot(slotID);
                 if (itemStack != null && itemStack.getItem() instanceof IModule) {
                     modules.add(itemStack);
@@ -137,13 +138,14 @@ public abstract class TileEntityModuleAcceptor
         if (slots != null) {
             cacheID += Arrays.hashCode(slots);
         }
-        if (Settings.USE_CACHE && this.cache.containsKey(cacheID) &&
-                this.cache.get(cacheID) instanceof Set) {
+        if (Settings.USE_CACHE && this.cache.containsKey(cacheID)
+            && this.cache.get(cacheID) instanceof Set) {
             return (Set<IModule>) this.cache.get(cacheID);
         }
         final Set<IModule> modules = new HashSet<>();
         if (slots == null || slots.length <= 0) {
-            for (int slotID = this.startModuleIndex; slotID <= this.endModuleIndex; ++slotID) {
+            for (int slotID = this.startModuleIndex; slotID <= this.endModuleIndex;
+                 ++slotID) {
                 final ItemStack itemStack = this.getStackInSlot(slotID);
                 if (itemStack != null && itemStack.getItem() instanceof IModule) {
                     modules.add((IModule) itemStack.getItem());
@@ -166,15 +168,15 @@ public abstract class TileEntityModuleAcceptor
     @Override
     public int getFortronCost() {
         final String cacheID = "getFortronCost";
-        if (Settings.USE_CACHE && this.cache.containsKey(cacheID) &&
-                this.cache.get(cacheID) instanceof Integer) {
+        if (Settings.USE_CACHE && this.cache.containsKey(cacheID)
+            && this.cache.get(cacheID) instanceof Integer) {
             return (int) this.cache.get(cacheID);
         }
         float cost = 0.0f;
         for (final ItemStack itemStack : this.getModuleStacks(new int[0])) {
             if (itemStack != null) {
-                cost += itemStack.stackSize *
-                        ((IModule) itemStack.getItem()).getFortronCost(this.getAmplifier());
+                cost += itemStack.stackSize
+                    * ((IModule) itemStack.getItem()).getFortronCost(this.getAmplifier());
             }
         }
         final int result = Math.round(cost);
@@ -192,11 +194,11 @@ public abstract class TileEntityModuleAcceptor
     public void markDirty() {
         super.markDirty();
         super.fortronTank.setCapacity(
-                (this.getModuleCount(ModularForceFieldSystem.itemModuleCapacity,
-                        new int[0]) *
-                        this.capacityBoost +
-                        this.capacityBase) *
-                        1000);
+            (this.getModuleCount(ModularForceFieldSystem.itemModuleCapacity, new int[0])
+                 * this.capacityBoost
+             + this.capacityBase)
+            * 1000
+        );
         this.clearCache();
     }
 

@@ -16,8 +16,9 @@ public class GuiIcon extends GuiButton {
     public ItemStack[] itemStacks;
     private int index;
 
-    public GuiIcon(final int par1, final int par2, final int par3,
-            final ItemStack... itemStacks) {
+    public GuiIcon(
+        final int par1, final int par2, final int par3, final ItemStack... itemStacks
+    ) {
         super(par1, par2, par3, 20, 20, "");
         this.index = 0;
         this.itemStacks = itemStacks;
@@ -30,19 +31,24 @@ public class GuiIcon extends GuiButton {
     }
 
     @Override
-    public void drawButton(final Minecraft par1Minecraft, final int par2,
-            final int par3) {
+    public void
+    drawButton(final Minecraft par1Minecraft, final int par2, final int par3) {
         super.drawButton(par1Minecraft, par2, par3);
         if (this.visible && this.itemStacks[this.index] != null) {
             int yDisplacement = 2;
-            if (this.itemStacks[this.index].getItem() == Item.getItemFromBlock(Blocks.torch) ||
-                    this.itemStacks[this.index].getItem() == Item.getItemFromBlock(Blocks.redstone_torch)) {
+            if (this.itemStacks[this.index].getItem()
+                    == Item.getItemFromBlock(Blocks.torch)
+                || this.itemStacks[this.index].getItem()
+                    == Item.getItemFromBlock(Blocks.redstone_torch)) {
                 yDisplacement = 0;
             } else if (this.itemStacks[this.index].getItem() instanceof ItemBlock) {
                 yDisplacement = 3;
             }
-            this.drawItemStack(this.itemStacks[this.index], this.xPosition,
-                    this.yPosition + yDisplacement);
+            this.drawItemStack(
+                this.itemStacks[this.index],
+                this.xPosition,
+                this.yPosition + yDisplacement
+            );
         }
     }
 
@@ -56,9 +62,11 @@ public class GuiIcon extends GuiButton {
         this.zLevel = 500.0f;
         GuiIcon.itemRenderer.zLevel = 500.0f;
         GuiIcon.itemRenderer.renderItemAndEffectIntoGUI(
-                fontRenderer, mc.renderEngine, itemStack, x, y);
-        GuiIcon.itemRenderer.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine,
-                itemStack, x, y);
+            fontRenderer, mc.renderEngine, itemStack, x, y
+        );
+        GuiIcon.itemRenderer.renderItemOverlayIntoGUI(
+            fontRenderer, mc.renderEngine, itemStack, x, y
+        );
         this.zLevel = 0.0f;
         GuiIcon.itemRenderer.zLevel = 0.0f;
         RenderHelper.disableStandardItemLighting();

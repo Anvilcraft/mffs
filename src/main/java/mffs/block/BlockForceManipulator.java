@@ -16,12 +16,17 @@ public class BlockForceManipulator extends BlockMachine {
         super("manipulator");
     }
 
-    public static int determineOrientation(final World world, final int x,
-            final int y, final int z,
-            final EntityPlayer entityPlayer) {
-        if (MathHelper.abs((float) ((Entity) entityPlayer).posX - x) < 2.0f &&
-                MathHelper.abs((float) ((Entity) entityPlayer).posZ - z) < 2.0f) {
-            final double var5 = ((Entity) entityPlayer).posY + 1.82 - ((Entity) entityPlayer).yOffset;
+    public static int determineOrientation(
+        final World world,
+        final int x,
+        final int y,
+        final int z,
+        final EntityPlayer entityPlayer
+    ) {
+        if (MathHelper.abs((float) ((Entity) entityPlayer).posX - x) < 2.0f
+            && MathHelper.abs((float) ((Entity) entityPlayer).posZ - z) < 2.0f) {
+            final double var5
+                = ((Entity) entityPlayer).posY + 1.82 - ((Entity) entityPlayer).yOffset;
             if (var5 - y > 2.0) {
                 return 1;
             }
@@ -30,36 +35,52 @@ public class BlockForceManipulator extends BlockMachine {
             }
         }
         final int var6 = MathHelper.floor_double(
-                ((Entity) entityPlayer).rotationYaw * 4.0f / 360.0f + 0.5) &
-                0x3;
+                             ((Entity) entityPlayer).rotationYaw * 4.0f / 360.0f + 0.5
+                         )
+            & 0x3;
         return (var6 == 0)
-                ? 2
-                : ((var6 == 1) ? 5 : ((var6 == 2) ? 3 : ((var6 == 3) ? 4 : 0)));
+            ? 2
+            : ((var6 == 1) ? 5 : ((var6 == 2) ? 3 : ((var6 == 3) ? 4 : 0)));
     }
 
     @Override
-    public void onBlockPlacedBy(final World world, final int x, final int y,
-            final int z,
-            final EntityLivingBase par5EntityLiving,
-            final ItemStack stack) {
+    public void onBlockPlacedBy(
+        final World world,
+        final int x,
+        final int y,
+        final int z,
+        final EntityLivingBase par5EntityLiving,
+        final ItemStack stack
+    ) {
         final int metadata = determineOrientation(
-                world, x, y, z,
-                (EntityPlayer) par5EntityLiving); // TODO: ClassCastException?
+            world,
+            x,
+            y,
+            z,
+            (EntityPlayer) par5EntityLiving
+        ); // TODO: ClassCastException?
         world.setBlockMetadataWithNotify(x, y, z, metadata, 2);
     }
 
     @Override
-    public boolean onUseWrench(final World world, final int x, final int y,
-            final int z, final EntityPlayer par5EntityPlayer,
-            final int side, final float hitX, final float hitY,
-            final float hitZ) {
+    public boolean onUseWrench(
+        final World world,
+        final int x,
+        final int y,
+        final int z,
+        final EntityPlayer par5EntityPlayer,
+        final int side,
+        final float hitX,
+        final float hitY,
+        final float hitZ
+    ) {
         final int mask = 7;
         final int rotMeta = world.getBlockMetadata(x, y, z);
         final int masked = rotMeta & ~mask;
         final ForgeDirection orientation = ForgeDirection.getOrientation(rotMeta & mask);
-        final ForgeDirection rotated = orientation.getRotation(ForgeDirection.getOrientation(side));
-        world.setBlockMetadataWithNotify(x, y, z,
-                (rotated.ordinal() & mask) | masked, 3);
+        final ForgeDirection rotated
+            = orientation.getRotation(ForgeDirection.getOrientation(side));
+        world.setBlockMetadataWithNotify(x, y, z, (rotated.ordinal() & mask) | masked, 3);
         return true;
     }
 

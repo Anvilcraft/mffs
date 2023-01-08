@@ -19,13 +19,17 @@ public class BlockPostMoveDelayedEvent extends DelayedEvent {
     private TileEntity tileEntity;
     private NBTTagCompound tileData;
 
-    public BlockPostMoveDelayedEvent(final IDelayedEventHandler handler,
-            final int ticks, final World world,
-            final Vector3 originalPosition,
-            final Vector3 newPosition, final Block blockID,
-            final int blockMetadata,
-            final TileEntity tileEntity,
-            final NBTTagCompound tileData) {
+    public BlockPostMoveDelayedEvent(
+        final IDelayedEventHandler handler,
+        final int ticks,
+        final World world,
+        final Vector3 originalPosition,
+        final Vector3 newPosition,
+        final Block blockID,
+        final int blockMetadata,
+        final TileEntity tileEntity,
+        final NBTTagCompound tileData
+    ) {
         super(handler, ticks);
         this.blockID = Blocks.air;
         this.blockMetadata = 0;
@@ -44,17 +48,27 @@ public class BlockPostMoveDelayedEvent extends DelayedEvent {
             try {
                 if (this.tileEntity != null && this.tileData != null) {
                     ManipulatorHelper.setBlockSneaky(
-                            this.world, this.newPosition, this.blockID, this.blockMetadata,
-                            TileEntity.createAndLoadEntity(this.tileData));
+                        this.world,
+                        this.newPosition,
+                        this.blockID,
+                        this.blockMetadata,
+                        TileEntity.createAndLoadEntity(this.tileData)
+                    );
                 } else {
-                    ManipulatorHelper.setBlockSneaky(this.world, this.newPosition,
-                            this.blockID, this.blockMetadata,
-                            null);
+                    ManipulatorHelper.setBlockSneaky(
+                        this.world,
+                        this.newPosition,
+                        this.blockID,
+                        this.blockMetadata,
+                        null
+                    );
                 }
                 super.handler.getQuedDelayedEvents().add(new BlockNotifyDelayedEvent(
-                        super.handler, 0, this.world, this.originalPosition));
+                    super.handler, 0, this.world, this.originalPosition
+                ));
                 super.handler.getQuedDelayedEvents().add(new BlockNotifyDelayedEvent(
-                        super.handler, 0, this.world, this.newPosition));
+                    super.handler, 0, this.world, this.newPosition
+                ));
             } catch (final Exception e) {
                 e.printStackTrace();
             }

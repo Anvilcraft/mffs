@@ -20,8 +20,7 @@ import universalelectricity.core.UniversalElectricity;
 import universalelectricity.prefab.block.BlockRotatable;
 import universalelectricity.prefab.implement.IRedstoneReceptor;
 
-public abstract class BlockMachine
-        extends BlockRotatable implements ICamouflageMaterial {
+public abstract class BlockMachine extends BlockRotatable implements ICamouflageMaterial {
     public BlockMachine(final String name) {
         super(UniversalElectricity.machine);
         this.setBlockName("mffs:" + name);
@@ -32,68 +31,95 @@ public abstract class BlockMachine
     }
 
     @Override
-    public boolean onMachineActivated(final World world, final int x, final int y, final int z,
-            final EntityPlayer entityPlayer, final int side,
-            final float hitX, final float hitY, final float hitZ) {
+    public boolean onMachineActivated(
+        final World world,
+        final int x,
+        final int y,
+        final int z,
+        final EntityPlayer entityPlayer,
+        final int side,
+        final float hitX,
+        final float hitY,
+        final float hitZ
+    ) {
         if (!world.isRemote) {
-            if (entityPlayer.getCurrentEquippedItem() != null &&
-                    entityPlayer.getCurrentEquippedItem().getItem() instanceof ItemCardLink) {
+            if (entityPlayer.getCurrentEquippedItem() != null
+                && entityPlayer.getCurrentEquippedItem().getItem()
+                        instanceof ItemCardLink) {
                 return false;
             }
-            entityPlayer.openGui((Object) ModularForceFieldSystem.instance, 0, world,
-                    x, y, z);
+            entityPlayer.openGui(
+                (Object) ModularForceFieldSystem.instance, 0, world, x, y, z
+            );
         }
         return true;
     }
 
     @Override
-    public boolean onSneakMachineActivated(final World world, final int x,
-            final int y, final int z,
-            final EntityPlayer entityPlayer,
-            final int side, final float hitX,
-            final float hitY, final float hitZ) {
-        return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY,
-                hitZ);
+    public boolean onSneakMachineActivated(
+        final World world,
+        final int x,
+        final int y,
+        final int z,
+        final EntityPlayer entityPlayer,
+        final int side,
+        final float hitX,
+        final float hitY,
+        final float hitZ
+    ) {
+        return this.onUseWrench(world, x, y, z, entityPlayer, side, hitX, hitY, hitZ);
     }
 
     @Override
-    public boolean onSneakUseWrench(final World world, final int x, final int y,
-            final int z, final EntityPlayer entityPlayer,
-            final int side, final float hitX,
-            final float hitY, final float hitZ) {
+    public boolean onSneakUseWrench(
+        final World world,
+        final int x,
+        final int y,
+        final int z,
+        final EntityPlayer entityPlayer,
+        final int side,
+        final float hitX,
+        final float hitY,
+        final float hitZ
+    ) {
         if (!world.isRemote) {
             final TileEntity tileEntity = world.getTileEntity(x, y, z);
             if (tileEntity instanceof IBiometricIdentifierLink) {
-                if (((IBiometricIdentifierLink) tileEntity).getBiometricIdentifier() == null) {
-                    this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z),
-                            0);
+                if (((IBiometricIdentifierLink) tileEntity).getBiometricIdentifier()
+                    == null) {
+                    this.dropBlockAsItem(
+                        world, x, y, z, world.getBlockMetadata(x, y, z), 0
+                    );
                     world.setBlockToAir(x, y, z);
                     return true;
                 }
                 if (((IBiometricIdentifierLink) tileEntity)
                         .getBiometricIdentifier()
-                        .isAccessGranted(entityPlayer.getDisplayName(),
-                                Permission.SECURITY_CENTER_CONFIGURE)) {
-                    this.dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z),
-                            0);
+                        .isAccessGranted(
+                            entityPlayer.getDisplayName(),
+                            Permission.SECURITY_CENTER_CONFIGURE
+                        )) {
+                    this.dropBlockAsItem(
+                        world, x, y, z, world.getBlockMetadata(x, y, z), 0
+                    );
                     world.setBlockToAir(x, y, z);
                     return true;
                 }
                 entityPlayer.addChatMessage(new ChatComponentText(
-                        "[" +
-                                ModularForceFieldSystem.blockBiometricIdentifier
-                                        .getLocalizedName()
-                                +
-                                "]"
-                                + " Cannot remove machine! Access denied!"));
+                    "["
+                    + ModularForceFieldSystem.blockBiometricIdentifier.getLocalizedName()
+                    + "]"
+                    + " Cannot remove machine! Access denied!"
+                ));
             }
         }
         return false;
     }
 
     @Override
-    public void onNeighborBlockChange(final World world, final int x, final int y,
-            final int z, final Block block) {
+    public void onNeighborBlockChange(
+        final World world, final int x, final int y, final int z, final Block block
+    ) {
         if (!world.isRemote) {
             final TileEntity tileEntity = world.getTileEntity(x, y, z);
             if (tileEntity instanceof IRedstoneReceptor) {
@@ -107,10 +133,16 @@ public abstract class BlockMachine
     }
 
     @Override
-    public float getExplosionResistance(final Entity entity, final World world,
-            final int i, final int j, final int k,
-            final double d, final double d1,
-            final double d2) {
+    public float getExplosionResistance(
+        final Entity entity,
+        final World world,
+        final int i,
+        final int j,
+        final int k,
+        final double d,
+        final double d1,
+        final double d2
+    ) {
         return 100.0f;
     }
 
