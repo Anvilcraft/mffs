@@ -19,7 +19,6 @@ import mffs.tileentity.TileEntityForceField;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -46,7 +45,7 @@ public class BlockForceField
         super("forceField", Material.glass);
         this.setBlockUnbreakable();
         this.setResistance(999.0f);
-        this.setCreativeTab((CreativeTabs) null);
+        this.setCreativeTab(null);
     }
 
     @Override

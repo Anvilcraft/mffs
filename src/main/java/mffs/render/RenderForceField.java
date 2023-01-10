@@ -5,13 +5,13 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mffs.ModularForceFieldSystem;
 import mffs.tileentity.TileEntityForceField;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 
 @SideOnly(Side.CLIENT)
 public class RenderForceField implements ISimpleBlockRenderingHandler {
@@ -37,6 +37,23 @@ public class RenderForceField implements ISimpleBlockRenderingHandler {
         final int modelId,
         final RenderBlocks renderer
     ) {
+        boolean shouldRender = false;
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
+            if (block.shouldSideBeRendered(
+                    iBlockAccess,
+                    x + dir.offsetX,
+                    y + dir.offsetY,
+                    z + dir.offsetZ,
+                    iBlockAccess.getBlockMetadata(x, y, z)
+                )) {
+                shouldRender = true;
+                break;
+            }
+        }
+
+        if (!shouldRender)
+            return false;
+
         int renderType = 0;
         final TileEntity tileEntity = iBlockAccess.getTileEntity(x, y, z);
         if (tileEntity instanceof TileEntityForceField) {
@@ -48,9 +65,7 @@ public class RenderForceField implements ISimpleBlockRenderingHandler {
                 }
             }
         }
-        ModularForceFieldSystem.LOGGER.fine(
-            "Render block: " + block.getUnlocalizedName()
-        );
+
         if (renderType >= 0) {
             switch (renderType) {
                 case 4: {
