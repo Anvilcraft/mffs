@@ -61,6 +61,7 @@ dependencies {
     implementation "universalelectricity:basiccomponents:2.0.0:deobf"
     implementation "universalelectricity:universalelectricity:5.1.0:deobf"
     implementation 'net.industrial-craft:industrialcraft-2:2.2.827-experimental:dev'
+    implementation 'dan200:ComputerCraft:1.75:deobf'
 }
 
 processResources {
