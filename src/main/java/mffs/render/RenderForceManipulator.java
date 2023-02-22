@@ -32,6 +32,29 @@ public class RenderForceManipulator extends TileEntitySpecialRenderer {
         GL11.glPushMatrix();
         GL11.glTranslated(x + 0.5, y + 1.5, z + 0.5);
         GL11.glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
+        switch (t.getBlockMetadata()) {
+            case 0:
+                GL11.glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+                GL11.glTranslatef(0.0f, -1.0f, -1.0f);
+                break;
+            case 1:
+                GL11.glRotatef(270.0f, 1.0f, 0.0f, 0.0f);
+                GL11.glTranslatef(0.0f, -1.0f, 1.0f);
+                break;
+            case 3:
+                GL11.glRotatef(180.0f, 0.0f, 1.0f, 0.0f);
+                break;
+            case 4:
+                GL11.glRotatef(270.0f, 0.0f, 1.0f, 0.0f);
+                break;
+            case 5:
+                GL11.glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+                break;
+
+            case 2:
+            default:
+                break;
+        }
         RenderForceManipulator.MODEL.render(0.0625f);
         GL11.glPopMatrix();
     }
